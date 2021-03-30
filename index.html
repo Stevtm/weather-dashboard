@@ -5,9 +5,58 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Weather Dashboard</title>
+		<link
+			href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+			rel="stylesheet"
+		/>
 		<link rel="stylesheet" href="./assets/css/style.css" />
 	</head>
 	<body>
-		<script src="./assets/js/script.js" />
+		<!-- header (title) -->
+		<header class="p-10 bg-gray-700">
+			<h1 class="text-center text-white text-5xl">Weather Dashboard</h1>
+		</header>
+		<!-- main content -->
+		<main>
+			<!-- section holding the search input and the previous searches -->
+			<section>
+				<!-- city search -->
+				<div class="flex flex-col items-center">
+					<h3 class="text-center text-2xl p-2">Search for a City:</h3>
+					<input type="text" class="border border-black p-1 m-2" />
+				</div>
+				<!-- previous searches -->
+				<div class="flex flex-col items-center">
+					<a class="p-1 m-1 text-lg border border-black">Previous Search 1 </a>
+					<a class="p-1 m-1 text-lg border border-black">Previous Search 2 </a>
+				</div>
+			</section>
+			<!-- section holding the search results -->
+			<section>
+				<!-- current forecast for searched location -->
+				<article>
+					<h2 class="text-center text-3xl pt-4">City Name</h2>
+					<h3 class="text-center text-xl p-1">Date</h3>
+					<div class="px-10 py-3">
+						<p>Temperature:</p>
+						<p>Humidity:</p>
+						<p>Wind Speed:</p>
+						<p>UV Index</p>
+					</div>
+				</article>
+				<!-- 5-day forecast -->
+				<article>
+					<h3 class="text-center text-2xl">5-Day Forecast</h3>
+					<div class="flex flex-col items-center">
+						<div class="p-10 m-2 bg-green-600 text-white">Day 1</div>
+						<div class="p-10 m-2 bg-green-600 text-white">Day 2</div>
+						<div class="p-10 m-2 bg-green-600 text-white">Day 3</div>
+						<div class="p-10 m-2 bg-green-600 text-white">Day 4</div>
+						<div class="p-10 m-2 bg-green-600 text-white">Day 5</div>
+					</div>
+				</article>
+			</section>
+		</main>
+		<script src="./assets/js/script.js"></script>
 	</body>
 </html>
