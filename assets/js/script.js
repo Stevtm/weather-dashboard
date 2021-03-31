@@ -89,4 +89,10 @@ var showForecast = function (days) {
 	}
 };
 
-getCoordinates("Toronto");
+// ----- get the user input for the city search -----
+$("#submit-search").on("click", function () {
+	// get the information in the input field
+	var cityName = $("#city-name").val().trim();
+
+	getCoordinates(cityName);
+});
