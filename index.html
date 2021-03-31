@@ -38,10 +38,10 @@
 					<h2 class="text-center text-3xl pt-4">City Name</h2>
 					<h3 class="text-center text-xl p-1">Date</h3>
 					<div class="px-10 py-3">
-						<p>Temperature:</p>
-						<p>Humidity:</p>
-						<p>Wind Speed:</p>
-						<p>UV Index</p>
+						<p>Temperature:<span id="currentTemp"></span>°C</p>
+						<p>Humidity:<span id="currentHum"></span>%</p>
+						<p>Wind Speed:<span id="currentWind"></span>m/s</p>
+						<p>UV Index:<span id="currentUV"></span></p>
 					</div>
 				</article>
 				<!-- 5-day forecast -->
@@ -57,6 +57,8 @@
 				</article>
 			</section>
 		</main>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/luxon@1.26.0/build/global/luxon.min.js"></script>
 		<script src="./assets/js/script.js"></script>
 	</body>
 </html>
