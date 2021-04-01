@@ -1,6 +1,41 @@
 // initialize luxon variable
 var DateTime = luxon.DateTime;
 
+// ----- functions that handle recent search saving and display -----
+// declare an array to hold recent searches
+var recentsArray = [];
+
+// function that loads recent searches from localStorage
+var loadRecents = function () {
+	recentsArray = JSON.parse(localStorage.getItem("recentSearches"));
+
+	// if there is nothing in localStorage, create a new array to hold recent searches
+	if (!recentsArray) {
+		recentsArray = [];
+	}
+};
+
+loadRecents();
+
+// function that displays recent searches on the page
+var showRecents = function () {
+	// clear the existing recents on the page
+	$("#recent-searches").find("a").remove();
+
+	// for the first 5 array indexes in the recentsArray, create an element
+	for (var i = 0; i < 5; i++) {
+		// create an <a> element
+		var recentEl = $("<a>")
+			.addClass("p-1 m-1 text-lg border border-black")
+			.text(recentsArray[i]);
+
+		// append to the DOM
+		$("#recent-searches").append(recentEl);
+	}
+};
+
+showRecents();
+
 // ----- use openweathermap api to get weather information -----
 // function that gets latitude and longitude based on city input
 var getCoordinates = function (location) {
@@ -20,6 +55,14 @@ var getCoordinates = function (location) {
 					// update the page with the location name and current date
 					$("#city-title").text(`${data.name}, ${data.sys.country}`);
 					$("#current-date").text(`${date}`);
+
+					// push location name to localStorage array
+					recentsArray.unshift(`${data.name}, ${data.sys.country}`);
+					localStorage.setItem("recentSearches", JSON.stringify(recentsArray));
+
+					// show updated list of recents on the page
+					showRecents();
+
 					// get latitude and longitude data
 					var lat = data.coord.lat;
 					var lon = data.coord.lon;
@@ -59,7 +102,7 @@ var getWeather = function (lat, lon) {
 		});
 };
 
-// function to display the current weather information on the page
+// function that displays the current weather information on the page
 var showCurrentWeather = function (data) {
 	// declare variables for all required information from the weather object
 	var temp = Math.round((data.temp - 273.15) * 1000) / 1000;
@@ -74,14 +117,14 @@ var showCurrentWeather = function (data) {
 	$("#currentUV").text(` ${UV}`);
 };
 
+// function that displays the forecast for the next 5 days
 var showForecast = function (days) {
-	console.log(days);
 	// create a new element for each of the next 5 days
 	for (var day of days) {
 		// get the relevant information to be displayed
 		var date = DateTime.fromSeconds(day.dt).toLocaleString(DateTime.DATE_MED);
 		var temp = Math.round((day.temp.day - 273.15) * 1000) / 1000;
-		var wind = Math.round((day.))
+		var wind = Math.round((day.wind_speed * 1000) / 1000);
 		var hum = Math.round(day.humidity * 1000) / 1000;
 
 		// create container div to hold information
@@ -89,11 +132,12 @@ var showForecast = function (days) {
 
 		// create information elements to append to container div
 		var dateEl = $("<h4>").text(date);
-		var tempEl = $("<p>").text(`Temp: ${temp}`);
-		var humEl = $("<p>").text(`Humidity: ${hum}`);
+		var tempEl = $("<p>").text(`Temp: ${temp}°C`);
+		var windEl = $("<p>").text(`Wind Speed: ${wind} m/s`);
+		var humEl = $("<p>").text(`Humidity: ${hum}%`);
 
 		// append information elements to container div
-		forecastEl.append(dateEl, tempEl, humEl);
+		forecastEl.append(dateEl, tempEl, windEl, humEl);
 
 		// append container div to the DOM element
 		$("#forecasts").append(forecastEl);
@@ -107,5 +151,3 @@ $("#submit-search").on("click", function () {
 
 	getCoordinates(cityName);
 });
-
-getCoordinates("Vancouver");
