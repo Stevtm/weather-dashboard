@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Weather Dashboard</title>
 		<link
-			href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+			href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
 			rel="stylesheet"
 			type="text/css"
 		/>
@@ -43,8 +43,8 @@
 			<section>
 				<!-- current forecast for searched location -->
 				<article>
-					<h2 class="text-center text-3xl pt-4">City Name</h2>
-					<h3 class="text-center text-xl p-1">Date</h3>
+					<h2 id="city-title" class="text-center text-3xl pt-4"></h2>
+					<h3 id="current-date" class="text-center text-xl p-1"></h3>
 					<div class="px-10 py-3">
 						<p>Temperature:<span id="currentTemp"></span>°C</p>
 						<p>Humidity:<span id="currentHum"></span>%</p>

@@ -1,5 +1,7 @@
-// ----- use openweathermap api to get weather information -----
+// initialize luxon variable
+var DateTime = luxon.DateTime;
 
+// ----- use openweathermap api to get weather information -----
 // function that gets latitude and longitude based on city input
 var getCoordinates = function (location) {
 	// format the api url
@@ -10,6 +12,14 @@ var getCoordinates = function (location) {
 			// request was successful
 			if (response.ok) {
 				response.json().then(function (data) {
+					// parse the unix timestamp using luxon
+					var date = DateTime.fromSeconds(data.dt).toLocaleString(
+						DateTime.DATE_MED
+					);
+
+					// update the page with the location name and current date
+					$("#city-title").text(`${data.name}, ${data.sys.country}`);
+					$("#current-date").text(`${date}`);
 					// get latitude and longitude data
 					var lat = data.coord.lat;
 					var lon = data.coord.lon;
@@ -69,8 +79,9 @@ var showForecast = function (days) {
 	// create a new element for each of the next 5 days
 	for (var day of days) {
 		// get the relevant information to be displayed
-		var date = day.dt;
+		var date = DateTime.fromSeconds(day.dt).toLocaleString(DateTime.DATE_MED);
 		var temp = Math.round((day.temp.day - 273.15) * 1000) / 1000;
+		var wind = Math.round((day.))
 		var hum = Math.round(day.humidity * 1000) / 1000;
 
 		// create container div to hold information
@@ -96,3 +107,5 @@ $("#submit-search").on("click", function () {
 
 	getCoordinates(cityName);
 });
+
+getCoordinates("Vancouver");
