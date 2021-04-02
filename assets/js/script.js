@@ -22,14 +22,42 @@ var showRecents = function () {
 	// clear the existing recents on the page
 	$("#recent-searches").find("a").remove();
 
-	// for the first 5 array indexes in the recentsArray, create an element
-	for (var i = 0; i < 5; i++) {
+	// if there are at least 5 previous searches, create an element for the first 5 array indexes in the recentsArray
+	if (recentsArray.length >= 5) {
+		for (var i = 0; i < 5; i++) {
+			// create an <a> element
+			var recentEl = $("<a>")
+				.addClass(
+					"recent-search p-2 text-lg border-t border-gray-700 w-full hover:bg-blue-100"
+				)
+				.text(recentsArray[i]);
+
+			// append to the DOM
+			$("#recent-searches").append(recentEl);
+		}
+	}
+	// if there are not 5 previous searches, create an element for each available index
+	else if (recentsArray.length < 5 && recentsArray.length > 0) {
+		for (var i = 0; i < recentsArray.length; i++) {
+			// create an <a> element
+			var recentEl = $("<a>")
+				.addClass(
+					"recent-search p-2 text-lg border-t border-gray-700 w-full hover:bg-blue-100"
+				)
+				.text(recentsArray[i]);
+
+			// append to the DOM
+			$("#recent-searches").append(recentEl);
+		}
+	}
+	// if there are no previous searches, insert a note
+	else {
 		// create an <a> element
-		var recentEl = $("<a>")
+		var recentEl = $("<p>")
 			.addClass(
 				"recent-search p-2 text-lg border-t border-gray-700 w-full hover:bg-blue-100"
 			)
-			.text(recentsArray[i]);
+			.text("Your recent searches will be added here!");
 
 		// append to the DOM
 		$("#recent-searches").append(recentEl);
@@ -141,15 +169,15 @@ var showCurrentWeather = function (data) {
 		.addClass("border-t border-gray-700 px-6 py-1 rounded-b-md text-lg w-full")
 		.text(`UV Index: ${UV}`);
 
-	if (UV >= 1 && UV <= 2) {
+	if (UV >= 0 && UV <= 2) {
 		UVEl.addClass("bg-green-500");
-	} else if (UV >= 3 && UV <= 5) {
+	} else if (UV > 2 && UV <= 5) {
 		UVEl.addClass("bg-yellow-300");
-	} else if (UV >= 6 && UV <= 7) {
+	} else if (UV > 5 && UV <= 7) {
 		UVEl.addClass("bg-yellow-600");
-	} else if (UV >= 8 && UV <= 10) {
+	} else if (UV > 7 && UV <= 10) {
 		UVEl.addClass("bg-red-600");
-	} else if (UV >= 11) {
+	} else if (UV > 10) {
 		UVEl.addClass("bg-purple-600");
 	}
 
@@ -273,5 +301,3 @@ $("#recent-searches").on("click", "a", function () {
 
 	getCoordinates(cityName);
 });
-
-getCoordinates("Vancouver");
