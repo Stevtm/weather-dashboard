@@ -60,7 +60,13 @@ var getCoordinates = function (location) {
 					$("#city-title").text(`${data.name}, ${data.sys.country}`);
 					$("#current-date").text(`${date}`);
 
-					// push location name to localStorage array
+					// push location name to localStorage array, and remove duplicates
+					var duplicate = recentsArray.indexOf(
+						`${data.name}, ${data.sys.country}`
+					);
+					if (duplicate > -1) {
+						recentsArray.splice(duplicate, 1);
+					}
 					recentsArray.unshift(`${data.name}, ${data.sys.country}`);
 					localStorage.setItem("recentSearches", JSON.stringify(recentsArray));
 
