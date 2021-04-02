@@ -110,6 +110,35 @@ var showCurrentWeather = function (data) {
 	var wind = Math.round(data.wind_speed * 1000) / 1000;
 	var UV = Math.round(data.uvi * 1000) / 1000;
 
+	// get the correct icon to represent the weather conditions
+	var weatherIcon = $("<img>");
+
+	switch (data.weather[0].main) {
+		case "Thunderstorm":
+			weatherIcon.attr("src", "http://openweathermap.org/img/wn/11d@2x.png");
+			break;
+		case "Drizzle":
+			weatherIcon.attr("src", "http://openweathermap.org/img/wn/09d@2x.png");
+			break;
+		case "Rain":
+			weatherIcon.attr("src", "http://openweathermap.org/img/wn/10d@2x.png");
+			break;
+		case "Snow":
+			weatherIcon.attr("src", "http://openweathermap.org/img/wn/13d@2x.png");
+			break;
+		case "Atmosphere":
+			weatherIcon.attr("src", "http://openweathermap.org/img/wn/50d@2x.png");
+			break;
+		case "Clouds":
+			weatherIcon.attr("src", "http://openweathermap.org/img/wn/02d@2x.png");
+			break;
+		case "Clear":
+			weatherIcon.attr("src", "http://openweathermap.org/img/wn/01d@2x.png");
+			break;
+		default:
+			weatherIcon.attr("src", "http://openweathermap.org/img/wn/01d@2x.png");
+	}
+
 	// create information elements to hold current weather information
 	var tempEl = $("<p>").text(`Temperature: ${temp}°C`);
 	var humEl = $("<p>").text(`Humidity: ${hum}%`);
@@ -118,9 +147,10 @@ var showCurrentWeather = function (data) {
 
 	// clear the current contents of the current-conditions div
 	$("#current-conditions").find("p").remove();
+	$("#current-conditions").find("i").remove();
 
 	// append information elements to the current-conditions div
-	$("#current-conditions").append(tempEl, humEl, windEl, UVEl);
+	$("#current-conditions").append(weatherIcon, tempEl, humEl, windEl, UVEl);
 };
 
 // function that displays the forecast for the next 5 days
@@ -136,6 +166,35 @@ var showForecast = function (days) {
 		var wind = Math.round((day.wind_speed * 1000) / 1000);
 		var hum = Math.round(day.humidity * 1000) / 1000;
 
+		// get the correct icon to represent the weather conditions
+		var weatherIcon = $("<img>");
+
+		switch (day.weather[0].main) {
+			case "Thunderstorm":
+				weatherIcon.attr("src", "http://openweathermap.org/img/wn/11d@2x.png");
+				break;
+			case "Drizzle":
+				weatherIcon.attr("src", "http://openweathermap.org/img/wn/09d@2x.png");
+				break;
+			case "Rain":
+				weatherIcon.attr("src", "http://openweathermap.org/img/wn/10d@2x.png");
+				break;
+			case "Snow":
+				weatherIcon.attr("src", "http://openweathermap.org/img/wn/13d@2x.png");
+				break;
+			case "Atmosphere":
+				weatherIcon.attr("src", "http://openweathermap.org/img/wn/50d@2x.png");
+				break;
+			case "Clouds":
+				weatherIcon.attr("src", "http://openweathermap.org/img/wn/02d@2x.png");
+				break;
+			case "Clear":
+				weatherIcon.attr("src", "http://openweathermap.org/img/wn/01d@2x.png");
+				break;
+			default:
+				weatherIcon.attr("src", "http://openweathermap.org/img/wn/01d@2x.png");
+		}
+
 		// create container div to hold information
 		var forecastEl = $("<div>").addClass("p-10 m-2 bg-green-600 text-white");
 
@@ -146,7 +205,7 @@ var showForecast = function (days) {
 		var humEl = $("<p>").text(`Humidity: ${hum}%`);
 
 		// append information elements to container div
-		forecastEl.append(dateEl, tempEl, windEl, humEl);
+		forecastEl.append(weatherIcon, dateEl, tempEl, windEl, humEl);
 
 		// append container div to the DOM element
 		$("#forecasts").append(forecastEl);
@@ -160,3 +219,5 @@ $("#submit-search").on("click", function () {
 
 	getCoordinates(cityName);
 });
+
+getCoordinates("Vancouver");
