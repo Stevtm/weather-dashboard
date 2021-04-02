@@ -110,15 +110,24 @@ var showCurrentWeather = function (data) {
 	var wind = Math.round(data.wind_speed * 1000) / 1000;
 	var UV = Math.round(data.uvi * 1000) / 1000;
 
-	// show information on the page
-	$("#currentTemp").text(` ${temp}`);
-	$("#currentHum").text(` ${hum}`);
-	$("#currentWind").text(` ${wind} `);
-	$("#currentUV").text(` ${UV}`);
+	// create information elements to hold current weather information
+	var tempEl = $("<p>").text(`Temperature: ${temp}°C`);
+	var humEl = $("<p>").text(`Humidity: ${hum}%`);
+	var windEl = $("<p>").text(`Wind Speed: ${wind} m/s`);
+	var UVEl = $("<p>").text(`UV Index: ${UV}`);
+
+	// clear the current contents of the current-conditions div
+	$("#current-conditions").find("p").remove();
+
+	// append information elements to the current-conditions div
+	$("#current-conditions").append(tempEl, humEl, windEl, UVEl);
 };
 
 // function that displays the forecast for the next 5 days
 var showForecast = function (days) {
+	// clear the current contents (previous search) from the forecasts div
+	$("#forecasts").find("div").remove();
+
 	// create a new element for each of the next 5 days
 	for (var day of days) {
 		// get the relevant information to be displayed
