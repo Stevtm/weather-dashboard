@@ -7,3 +7,11 @@
 .recent-search {
 	cursor: pointer;
 }
+
+.forecast:nth-child(even) {
+	background-color: #93c5fd;
+}
+
+.forecast:nth-child(odd) {
+	background-color: #d1d5db;
+}

@@ -180,20 +180,42 @@ var showForecast = function (days) {
 		var weatherIcon = getWeatherIcon(day.weather[0].main);
 
 		// create container div to hold information
-		var forecastEl = $("<div>").addClass("p-10 m-2 bg-green-600 text-white");
+		var forecastEl = $("<div>").addClass(
+			"forecast border-t-2 border-gray-700 flex flex-col items-center pt-2 w-full"
+		);
+
+		// create div for snapshot content and other conditions
+		var forecastSnapshot = $("<div>").addClass(
+			"flex flex-row justify-around w-10/12"
+		);
+		// var forecastConditions = $("<div>").addClass("flex flex-col");
 
 		// create information elements to append to container div
-		var dateEl = $("<h4>").text(date);
-		var tempEl = $("<p>").text(`Temp: ${temp}°C`);
-		var windEl = $("<p>").text(`Wind Speed: ${wind} m/s`);
-		var humEl = $("<p>").text(`Humidity: ${hum}%`);
+		var dateEl = $("<h4>")
+			.addClass("font-semibold text-xl text-center p-1")
+			.text(date);
+		var tempEl = $("<p>")
+			.addClass("flex flex-col justify-center text-4xl font-semibold")
+			.text(`${temp}°C`);
+		var windEl = $("<p>")
+			.addClass("border-t border-gray-700 px-6 py-1 text-lg w-full")
+			.text(`Wind Speed: ${wind} m/s`);
+		var humEl = $("<p>")
+			.addClass("border-t border-gray-700 px-6 py-1 text-lg w-full")
+			.text(`Humidity: ${hum}%`);
+
+		// append temp and weather icon to snapshot div
+		forecastSnapshot.append(tempEl, weatherIcon);
 
 		// append information elements to container div
-		forecastEl.append(dateEl, weatherIcon, tempEl, windEl, humEl);
+		forecastEl.append(dateEl, forecastSnapshot, windEl, humEl);
 
 		// append container div to the DOM element
 		$("#forecasts").append(forecastEl);
 	}
+
+	// fix the formatting of the last forecast element
+	$("#forecasts").find("div:last-child").addClass("rounded-b-md");
 };
 
 // function that creates the correct icon based on the weather condition
