@@ -14,22 +14,34 @@
 	</head>
 	<body>
 		<!-- header (title) -->
-		<header class="p-10 bg-gray-700">
-			<h1 class="text-center text-white text-5xl">Weather Dashboard</h1>
+		<header class="border-b-4 border-gray-700 px-10 py-6 bg-gray-100">
+			<h1 class="pt-12 font-bold text-center text-5xl">
+				Weather<br />
+				<span class="text-blue-600">Dashboard</span>
+			</h1>
+			<p class="pt-3 text-center text-lg text-gray-700">
+				Search the weather anywhere in the world!
+			</p>
 		</header>
 		<!-- main content -->
 		<main>
 			<!-- section holding the search input and the previous searches -->
 			<section>
 				<!-- city search -->
-				<div class="flex flex-col items-center">
-					<h3 class="text-center text-2xl p-2">Search for a City:</h3>
+				<div
+					class="border-2 border-gray-700 rounded-lg p-4 mx-10 my-4 flex flex-col items-center shadow-lg bg-gray-100"
+				>
+					<h3 class="font-bold text-3xl">Search for a City:</h3>
 					<input
 						id="city-name"
 						type="text"
-						class="border border-black p-1 m-2"
+						class="border border-black rounded-lg p-1 m-4 w-11/12"
 					/>
-					<button id="submit-search" type="submit" class="border border-black">
+					<button
+						id="submit-search"
+						type="submit"
+						class="rounded-lg px-2 py-1 shadow-lg font-normal text-white bg-blue-600 hover:bg-blue-800"
+					>
 						Search
 					</button>
 				</div>
@@ -54,7 +66,6 @@
 			</section>
 		</main>
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
 		<script src="https://cdn.jsdelivr.net/npm/luxon@1.26.0/build/global/luxon.min.js"></script>
 		<script src="./assets/js/script.js"></script>
 	</body>
