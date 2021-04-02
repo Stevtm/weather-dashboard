@@ -117,7 +117,21 @@ var showCurrentWeather = function (data) {
 	var tempEl = $("<p>").text(`Temperature: ${temp}°C`);
 	var humEl = $("<p>").text(`Humidity: ${hum}%`);
 	var windEl = $("<p>").text(`Wind Speed: ${wind} m/s`);
+
+	// create information element to hold UV index and style based on index
 	var UVEl = $("<p>").text(`UV Index: ${UV}`);
+
+	if (UV >= 1 && UV <= 2) {
+		UVEl.addClass("bg-green-500");
+	} else if (UV >= 3 && UV <= 5) {
+		UVEl.addClass("bg-yellow-300");
+	} else if (UV >= 6 && UV <= 7) {
+		UVEl.addClass("bg-yellow-600");
+	} else if (UV >= 8 && UV <= 10) {
+		UVEl.addClass("bg-red-600");
+	} else if (UV >= 11) {
+		UVEl.addClass("bg-purple-600");
+	}
 
 	// clear the current contents of the current-conditions div
 	$("#current-conditions").find("p").remove();
