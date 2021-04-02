@@ -111,9 +111,60 @@ var showCurrentWeather = function (data) {
 	var UV = Math.round(data.uvi * 1000) / 1000;
 
 	// get the correct icon to represent the weather conditions
+	var weatherIcon = getWeatherIcon(data.weather[0].main);
+
+	// create information elements to hold current weather information
+	var tempEl = $("<p>").text(`Temperature: ${temp}°C`);
+	var humEl = $("<p>").text(`Humidity: ${hum}%`);
+	var windEl = $("<p>").text(`Wind Speed: ${wind} m/s`);
+	var UVEl = $("<p>").text(`UV Index: ${UV}`);
+
+	// clear the current contents of the current-conditions div
+	$("#current-conditions").find("p").remove();
+	$("#current-conditions").find("img").remove();
+
+	// append information elements to the current-conditions div
+	$("#current-conditions").append(weatherIcon, tempEl, humEl, windEl, UVEl);
+};
+
+// function that displays the forecast for the next 5 days
+var showForecast = function (days) {
+	// clear the current contents (previous search) from the forecasts div
+	$("#forecasts").find("div").remove();
+
+	// create a new element for each of the next 5 days
+	for (var day of days) {
+		// get the relevant information to be displayed
+		var date = DateTime.fromSeconds(day.dt).toLocaleString(DateTime.DATE_MED);
+		var temp = Math.round((day.temp.day - 273.15) * 1000) / 1000;
+		var wind = Math.round((day.wind_speed * 1000) / 1000);
+		var hum = Math.round(day.humidity * 1000) / 1000;
+
+		// get the correct icon to represent the weather conditions
+		var weatherIcon = getWeatherIcon(day.weather[0].main);
+
+		// create container div to hold information
+		var forecastEl = $("<div>").addClass("p-10 m-2 bg-green-600 text-white");
+
+		// create information elements to append to container div
+		var dateEl = $("<h4>").text(date);
+		var tempEl = $("<p>").text(`Temp: ${temp}°C`);
+		var windEl = $("<p>").text(`Wind Speed: ${wind} m/s`);
+		var humEl = $("<p>").text(`Humidity: ${hum}%`);
+
+		// append information elements to container div
+		forecastEl.append(weatherIcon, dateEl, tempEl, windEl, humEl);
+
+		// append container div to the DOM element
+		$("#forecasts").append(forecastEl);
+	}
+};
+
+// function that creates the correct icon based on the weather condition
+var getWeatherIcon = function (weather) {
 	var weatherIcon = $("<img>");
 
-	switch (data.weather[0].main) {
+	switch (weather) {
 		case "Thunderstorm":
 			weatherIcon.attr("src", "http://openweathermap.org/img/wn/11d@2x.png");
 			break;
@@ -139,80 +190,11 @@ var showCurrentWeather = function (data) {
 			weatherIcon.attr("src", "http://openweathermap.org/img/wn/01d@2x.png");
 	}
 
-	// create information elements to hold current weather information
-	var tempEl = $("<p>").text(`Temperature: ${temp}°C`);
-	var humEl = $("<p>").text(`Humidity: ${hum}%`);
-	var windEl = $("<p>").text(`Wind Speed: ${wind} m/s`);
-	var UVEl = $("<p>").text(`UV Index: ${UV}`);
-
-	// clear the current contents of the current-conditions div
-	$("#current-conditions").find("p").remove();
-	$("#current-conditions").find("i").remove();
-
-	// append information elements to the current-conditions div
-	$("#current-conditions").append(weatherIcon, tempEl, humEl, windEl, UVEl);
+	return weatherIcon;
 };
 
-// function that displays the forecast for the next 5 days
-var showForecast = function (days) {
-	// clear the current contents (previous search) from the forecasts div
-	$("#forecasts").find("div").remove();
-
-	// create a new element for each of the next 5 days
-	for (var day of days) {
-		// get the relevant information to be displayed
-		var date = DateTime.fromSeconds(day.dt).toLocaleString(DateTime.DATE_MED);
-		var temp = Math.round((day.temp.day - 273.15) * 1000) / 1000;
-		var wind = Math.round((day.wind_speed * 1000) / 1000);
-		var hum = Math.round(day.humidity * 1000) / 1000;
-
-		// get the correct icon to represent the weather conditions
-		var weatherIcon = $("<img>");
-
-		switch (day.weather[0].main) {
-			case "Thunderstorm":
-				weatherIcon.attr("src", "http://openweathermap.org/img/wn/11d@2x.png");
-				break;
-			case "Drizzle":
-				weatherIcon.attr("src", "http://openweathermap.org/img/wn/09d@2x.png");
-				break;
-			case "Rain":
-				weatherIcon.attr("src", "http://openweathermap.org/img/wn/10d@2x.png");
-				break;
-			case "Snow":
-				weatherIcon.attr("src", "http://openweathermap.org/img/wn/13d@2x.png");
-				break;
-			case "Atmosphere":
-				weatherIcon.attr("src", "http://openweathermap.org/img/wn/50d@2x.png");
-				break;
-			case "Clouds":
-				weatherIcon.attr("src", "http://openweathermap.org/img/wn/02d@2x.png");
-				break;
-			case "Clear":
-				weatherIcon.attr("src", "http://openweathermap.org/img/wn/01d@2x.png");
-				break;
-			default:
-				weatherIcon.attr("src", "http://openweathermap.org/img/wn/01d@2x.png");
-		}
-
-		// create container div to hold information
-		var forecastEl = $("<div>").addClass("p-10 m-2 bg-green-600 text-white");
-
-		// create information elements to append to container div
-		var dateEl = $("<h4>").text(date);
-		var tempEl = $("<p>").text(`Temp: ${temp}°C`);
-		var windEl = $("<p>").text(`Wind Speed: ${wind} m/s`);
-		var humEl = $("<p>").text(`Humidity: ${hum}%`);
-
-		// append information elements to container div
-		forecastEl.append(weatherIcon, dateEl, tempEl, windEl, humEl);
-
-		// append container div to the DOM element
-		$("#forecasts").append(forecastEl);
-	}
-};
-
-// ----- get the user input for the city search -----
+// ----- add event listeners that trigger site actions -----
+// get the user input for the city search when the search button is clicked
 $("#submit-search").on("click", function () {
 	// get the information in the input field
 	var cityName = $("#city-name").val().trim();
@@ -220,4 +202,12 @@ $("#submit-search").on("click", function () {
 	getCoordinates(cityName);
 });
 
-getCoordinates("Vancouver");
+// search for corresponding city when the previous search is clicked
+$("#recent-searches").on("click", "a", function () {
+	// get the city name from the element
+	var cityName = $(this).text().trim();
+
+	getCoordinates(cityName);
+});
+
+// getCoordinates("Vancouver");
