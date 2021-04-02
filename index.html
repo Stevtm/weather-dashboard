@@ -14,7 +14,7 @@
 	</head>
 	<body>
 		<!-- header (title) -->
-		<header class="border-b-4 border-gray-700 px-10 py-6 bg-gray-100">
+		<header class="border-b-4 border-gray-700 px-10 py-6">
 			<h1 class="pt-12 font-bold text-center text-5xl">
 				Weather<br />
 				<span class="text-blue-600">Dashboard</span>
@@ -24,30 +24,38 @@
 			</p>
 		</header>
 		<!-- main content -->
-		<main>
+		<main class="pt-6 bg-gray-100">
 			<!-- section holding the search input and the previous searches -->
 			<section>
 				<!-- city search -->
 				<div
-					class="border-2 border-gray-700 rounded-lg p-4 mx-10 my-4 flex flex-col items-center shadow-lg bg-gray-100"
+					class="border-2 border-gray-700 rounded-lg p-4 mx-10 flex flex-col items-center shadow-xl bg-white"
 				>
-					<h3 class="font-bold text-3xl">Search for a City:</h3>
+					<h3 class="text-3xl">Search for a City</h3>
 					<input
 						id="city-name"
 						type="text"
-						class="border border-black rounded-lg p-1 m-4 w-11/12"
+						class="border border-gray-700 rounded-lg p-1 m-4 w-11/12"
 					/>
 					<button
 						id="submit-search"
 						type="submit"
-						class="rounded-lg px-2 py-1 shadow-lg font-normal text-white bg-blue-600 hover:bg-blue-800"
+						class="rounded-lg px-3 py-1 shadow-lg font-normal text-lg text-white bg-blue-600 hover:bg-blue-800"
 					>
 						Search
 					</button>
 				</div>
 				<!-- previous searches -->
-				<div id="recent-searches" class="flex flex-col items-center">
-					<h3 class="text-center text-xl p-2">Recent Searches:</h3>
+				<div
+					class="border-2 border-gray-700 rounded-lg mx-10 mt-6 flex flex-col items-center shadow-xl bg-white"
+				>
+					<h3 class="text-2xl py-4 w-full border-b text-center border-gray-700">
+						Recent Searches
+					</h3>
+					<div
+						id="recent-searches"
+						class="flex flex-col items-center w-full"
+					></div>
 				</div>
 			</section>
 			<!-- section holding the search results -->

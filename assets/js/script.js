@@ -26,7 +26,9 @@ var showRecents = function () {
 	for (var i = 0; i < 5; i++) {
 		// create an <a> element
 		var recentEl = $("<a>")
-			.addClass("p-1 m-1 text-lg border border-black")
+			.addClass(
+				"recent-search p-2 text-lg border-b border-gray-700 w-full hover:bg-blue-100"
+			)
 			.text(recentsArray[i]);
 
 		// append to the DOM
