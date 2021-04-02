@@ -49,9 +49,7 @@
 				<div
 					class="border-2 border-gray-700 rounded-lg mx-10 mt-6 flex flex-col items-center shadow-xl bg-white"
 				>
-					<h3 class="text-2xl py-4 w-full border-b text-center border-gray-700">
-						Recent Searches
-					</h3>
+					<h3 class="text-2xl py-4 w-full text-center">Recent Searches</h3>
 					<div
 						id="recent-searches"
 						class="flex flex-col items-center w-full"
@@ -61,10 +59,17 @@
 			<!-- section holding the search results -->
 			<section>
 				<!-- current forecast for searched location -->
-				<article>
-					<h2 id="city-title" class="text-center text-3xl pt-4"></h2>
-					<h3 id="current-date" class="text-center text-xl p-1"></h3>
-					<div id="current-conditions" class="px-10 py-3"></div>
+				<article
+					class="border-2 border-gray-700 rounded-lg mx-10 mt-6 flex flex-col items-center shadow-xl bg-blue-100"
+				>
+					<h2 class="text-xl pt-2">Current Weather in</h2>
+					<h2 id="city-title" class="text-3xl text-blue-700 font-bold"></h2>
+					<h3 id="current-date" class="font-semibold text-xl p-1"></h3>
+					<div
+						id="current-snapshot"
+						class="flex flex-row justify-around w-10/12"
+					></div>
+					<div id="current-conditions" class="pt-3 w-full"></div>
 				</article>
 				<!-- 5-day forecast -->
 				<article>

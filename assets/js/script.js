@@ -27,7 +27,7 @@ var showRecents = function () {
 		// create an <a> element
 		var recentEl = $("<a>")
 			.addClass(
-				"recent-search p-2 text-lg border-b border-gray-700 w-full hover:bg-blue-100"
+				"recent-search p-2 text-lg border-t border-gray-700 w-full hover:bg-blue-100"
 			)
 			.text(recentsArray[i]);
 
@@ -115,13 +115,23 @@ var showCurrentWeather = function (data) {
 	// get the correct icon to represent the weather conditions
 	var weatherIcon = getWeatherIcon(data.weather[0].main);
 
+	// create element for the current temperature
+	var tempEl = $("<p>")
+		.addClass("flex flex-col justify-center text-4xl font-semibold")
+		.text(`${temp}°C`);
+
 	// create information elements to hold current weather information
-	var tempEl = $("<p>").text(`Temperature: ${temp}°C`);
-	var humEl = $("<p>").text(`Humidity: ${hum}%`);
-	var windEl = $("<p>").text(`Wind Speed: ${wind} m/s`);
+	var humEl = $("<p>")
+		.addClass("border-t border-gray-700 px-6 py-1 text-lg w-full")
+		.text(`Humidity: ${hum}%`);
+	var windEl = $("<p>")
+		.addClass("border-t border-gray-700 px-6 py-1 text-lg w-full")
+		.text(`Wind Speed: ${wind} m/s`);
 
 	// create information element to hold UV index and style based on index
-	var UVEl = $("<p>").text(`UV Index: ${UV}`);
+	var UVEl = $("<p>")
+		.addClass("border-t border-gray-700 px-6 py-1 rounded-b-md text-lg w-full")
+		.text(`UV Index: ${UV}`);
 
 	if (UV >= 1 && UV <= 2) {
 		UVEl.addClass("bg-green-500");
@@ -135,12 +145,14 @@ var showCurrentWeather = function (data) {
 		UVEl.addClass("bg-purple-600");
 	}
 
-	// clear the current contents of the current-conditions div
-	$("#current-conditions").find("p").remove();
-	$("#current-conditions").find("img").remove();
+	// clear the current contents of the current-snapshot and current-conditions div
+	$("#current-conditions").find("div").remove();
+
+	// append the snapshot elements to the current-snapshot div
+	$("#current-snapshot").append(tempEl, weatherIcon);
 
 	// append information elements to the current-conditions div
-	$("#current-conditions").append(weatherIcon, tempEl, humEl, windEl, UVEl);
+	$("#current-conditions").append(humEl, windEl, UVEl);
 };
 
 // function that displays the forecast for the next 5 days
@@ -169,7 +181,7 @@ var showForecast = function (days) {
 		var humEl = $("<p>").text(`Humidity: ${hum}%`);
 
 		// append information elements to container div
-		forecastEl.append(weatherIcon, dateEl, tempEl, windEl, humEl);
+		forecastEl.append(dateEl, weatherIcon, tempEl, windEl, humEl);
 
 		// append container div to the DOM element
 		$("#forecasts").append(forecastEl);
@@ -226,4 +238,4 @@ $("#recent-searches").on("click", "a", function () {
 	getCoordinates(cityName);
 });
 
-// getCoordinates("Vancouver");
+getCoordinates("Vancouver");
