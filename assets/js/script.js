@@ -37,7 +37,7 @@ var showRecents = function () {
 		}
 	}
 	// if there are not 5 previous searches, create an element for each available index
-	else if (recentsArray.length < 5 && recentsArray.length > 0) {
+	else {
 		for (var i = 0; i < recentsArray.length; i++) {
 			// create an <a> element
 			var recentEl = $("<a>")
@@ -50,25 +50,13 @@ var showRecents = function () {
 			$("#recent-searches").append(recentEl);
 		}
 	}
-	// if there are no previous searches, insert a note
-	else {
-		// create an <a> element
-		var recentEl = $("<p>")
-			.addClass(
-				"recent-search p-2 text-lg border-t border-gray-700 w-full hover:bg-blue-100"
-			)
-			.text("Your recent searches will be added here!");
-
-		// append to the DOM
-		$("#recent-searches").append(recentEl);
-	}
 };
 
 showRecents();
 
 // ----- use openweathermap api to get weather information -----
 // function that gets latitude and longitude based on city input
-var getCoordinates = function (location) {
+function getCoordinates(location) {
 	// format the api url
 	var url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=c06ce19a48a657fbd564f534f209828a`;
 
@@ -113,7 +101,7 @@ var getCoordinates = function (location) {
 		.catch(function (error) {
 			alert("Unable to find weather data.");
 		});
-};
+}
 
 // function that gets current weather based on coordinates (lat & long)
 var getWeather = function (lat, lon) {
@@ -284,6 +272,17 @@ var getWeatherIcon = function (weather) {
 
 	return weatherIcon;
 };
+
+// show weather for most recent search on page load
+var showMostRecent = function () {
+	if (recentsArray[0]) {
+		getCoordinates(recentsArray[0]);
+	} else {
+		getCoordinates("Toronto");
+	}
+};
+
+showMostRecent();
 
 // ----- add event listeners that trigger site actions -----
 // get the user input for the city search when the search button is clicked
