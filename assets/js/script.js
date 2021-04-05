@@ -72,6 +72,8 @@ function getCoordinates(location) {
 						day: "numeric",
 					});
 
+					getFullCountryName(data.sys.country);
+
 					// update the page with the location name and current date
 					$("#city-title").text(`${data.name}, ${data.sys.country}`);
 					$("#current-date").text(`${date}`);
@@ -203,7 +205,7 @@ var showForecast = function (days) {
 
 		// create container div to hold information
 		var forecastEl = $("<div>").addClass(
-			"forecast border-t-2 border-gray-700 flex flex-col items-center pt-2 w-full"
+			"forecast border-t-2 border-gray-700 flex flex-col items-center pt-2 w-full md:w-6/12"
 		);
 
 		// create div for snapshot content and other conditions
@@ -235,6 +237,12 @@ var showForecast = function (days) {
 		// append container div to the DOM element
 		$("#forecasts").append(forecastEl);
 	}
+
+	// make the first foracast element the full width on medium screens
+	$("#forecasts")
+		.find("div:first-child")
+		.removeClass("md:w-6/10")
+		.addClass("md:w-full");
 
 	// fix the formatting of the last forecast element
 	$("#forecasts").find("div:last-child").addClass("rounded-b-md");
@@ -271,6 +279,14 @@ var getWeatherIcon = function (weather) {
 	}
 
 	return weatherIcon;
+};
+
+// get the full country name based on the country code
+var getFullCountryName = function (abbr) {
+	// get fetch request url
+	var url = `https://restcountries.eu/rest/v2/alpha/${abbr}`;
+
+	console.log(abbr);
 };
 
 // show weather for most recent search on page load

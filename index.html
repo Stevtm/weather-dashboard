@@ -24,43 +24,42 @@
 			</p>
 		</header>
 		<!-- main content -->
-		<main class="py-6 bg-gray-100">
-			<!-- section holding the search input and the previous searches -->
-			<section>
-				<!-- city search -->
-				<div
-					class="border-2 border-gray-700 rounded-lg p-4 mx-10 flex flex-col items-center shadow-xl bg-white"
-				>
-					<h3 class="text-3xl">Search for a City</h3>
-					<input
-						id="city-name"
-						type="text"
-						class="border border-gray-700 rounded-lg p-1 m-4 w-11/12"
-					/>
-					<button
-						id="submit-search"
-						type="submit"
-						class="rounded-lg px-3 py-1 shadow-lg font-normal text-lg text-white bg-blue-600 hover:bg-blue-800"
+		<main class="py-6 bg-gray-100 flex flex-col items-center w-full">
+			<div class="w-full flex flex-col items-center md:flex-row md:items-start">
+				<!-- section holding the search input and the previous searches -->
+				<section class="flex flex-col items-stretch w-full md:w-8/12">
+					<!-- city search -->
+					<article
+						class="border-2 border-gray-700 rounded-lg p-4 mx-10 flex flex-col items-center shadow-xl bg-white w-10/12 sm:w-8/12 md:w-10/12"
 					>
-						Search
-					</button>
-				</div>
-				<!-- previous searches -->
-				<div
-					class="border-2 border-gray-700 rounded-lg mx-10 mt-6 flex flex-col items-center shadow-xl bg-white"
-				>
-					<h3 class="text-2xl py-4 w-full text-center">Recent Searches</h3>
-					<div
-						id="recent-searches"
-						class="flex flex-col items-center w-full rounded-b-md"
-					></div>
-				</div>
-			</section>
-			<!-- section holding the search results -->
-			<section>
+						<h3 class="text-3xl">Search for a City</h3>
+						<input
+							id="city-name"
+							type="text"
+							class="border border-gray-700 rounded-lg p-1 m-4 w-11/12"
+						/>
+						<button
+							id="submit-search"
+							type="submit"
+							class="rounded-lg px-3 py-1 shadow-lg font-normal text-lg text-white bg-blue-600 hover:bg-blue-800"
+						>
+							Search
+						</button>
+					</article>
+					<!-- previous searches -->
+					<article
+						class="border-2 border-gray-700 rounded-lg mx-10 mt-6 flex flex-col items-center shadow-xl bg-white w-10/12 sm:w-8/12 md:w-10/12"
+					>
+						<h3 class="text-2xl py-4 w-full text-center">Recent Searches</h3>
+						<div
+							id="recent-searches"
+							class="flex flex-col items-center w-full rounded-b-md"
+						></div>
+					</article>
+				</section>
 				<!-- current forecast for searched location -->
-				<article
-					class="border-2 border-gray-700 rounded-lg mx-10 mt-6 flex flex-col items-center shadow-xl bg-blue-100"
+				<section
+					class="border-2 border-gray-700 rounded-lg mx-10 mt-6 flex flex-col items-center shadow-xl bg-blue-100 w-10/12 sm:w-8/12 md:w-10/12 md:mx-6 md:mt-0"
 				>
 					<h2 class="text-xl pt-2">Current Weather in</h2>
 					<h2 id="city-title" class="text-3xl text-blue-700 font-bold"></h2>
@@ -70,16 +69,19 @@
 						class="flex flex-row justify-around w-10/12"
 					></div>
 					<div id="current-conditions" class="pt-3 w-full"></div>
-				</article>
-				<!-- 5-day forecast -->
-				<article
-					class="border-2 border-gray-700 rounded-lg mx-10 mt-6 flex flex-col items-center shadow-xl bg-white"
-				>
-					<h3 class="text-2xl py-4 w-full font-semibold text-center">
-						5-Day Forecast
-					</h3>
-					<div id="forecasts" class="flex flex-col items-center w-full"></div>
-				</article>
+				</section>
+			</div>
+			<!-- 5-day forecast -->
+			<section
+				class="border-2 border-gray-700 rounded-lg mx-10 mt-6 flex flex-col items-center shadow-xl bg-white w-10/12 sm:w-8/12 md:w-10/12"
+			>
+				<h3 class="text-2xl py-4 w-full font-semibold text-center">
+					5-Day Forecast
+				</h3>
+				<div
+					id="forecasts"
+					class="flex flex-col items-center w-full md:flex-row md:flex-wrap"
+				></div>
 			</section>
 		</main>
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
