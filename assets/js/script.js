@@ -205,7 +205,7 @@ var showForecast = function (days) {
 
 		// create container div to hold information
 		var forecastEl = $("<div>").addClass(
-			"forecast border-t-2 border-gray-700 flex flex-col items-center pt-2 w-full md:w-6/12"
+			"forecast border-t-2 border-gray-700 flex flex-col items-center pt-2 w-full md:w-6/12 lg:w-4/12"
 		);
 
 		// create div for snapshot content and other conditions
@@ -242,7 +242,7 @@ var showForecast = function (days) {
 	$("#forecasts")
 		.find("div:first-child")
 		.removeClass("md:w-6/10")
-		.addClass("md:w-full");
+		.addClass("md:w-full lg:w-8/12");
 
 	// fix the formatting of the last forecast element
 	$("#forecasts").find("div:last-child").addClass("rounded-b-md");
